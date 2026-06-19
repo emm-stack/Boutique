@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jireh Boutique | Products</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="java.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo">Jireh <span>Boutique</span></a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="products.html" class="active">Products</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Search bar -->
+        <div class="search-container">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="text" class="search-input" placeholder="Search by name or category..." oninput="searchProducts(this.value)">
+        </div>
+
+        <!-- Inventory List Container -->
+        <div id="loading" class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Fetching fresh inventory...</p>
+        </div>
+
+        <div class="product-grid" id="product-list" style="display: none;"></div>
+
+        <!-- Checkout Overlay Modal -->
+        <div id="orderModal" class="modal-overlay">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <h3>Complete Pickup Order</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="modalProductDetails" class="modal-product-summary"></div>
+
+                    <form id="pickupForm" class="checkout-form" onsubmit="submitOrder(event)">
+                        <label for="custName">Full Name</label>
+                        <input type="text" id="custName" required placeholder="e.g. John Doe">
+
+                        <label for="custPhone">Phone Number</label>
+                        <input type="tel" id="custPhone" required placeholder="e.g. 0700000000">
+
+                        <label for="paymentMethod">Choose Payment Channel</label>
+                        <select id="paymentMethod" onchange="togglePaymentInstructions()">
+                            <option value="Cash on Pickup">Cash on Pickup</option>
+                            <option value="MTN MoMo Pay">Pay via MTN MoMo</option>
+                            <option value="Airtel Merchant">Pay via Airtel Merchant</option>
+                        </select>
+
+                        <div id="momoInstructions" class="payment-instructions-box">
+                            <p id="instructionText" class="payment-instructions-text"></p>
+                            <label for="txnId" style="color: var(--text-primary); font-weight: bold;">Paste Transaction ID / Reference</label>
+                            <input type="text" id="txnId" placeholder="e.g. 1894720938">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" id="submitBtn" class="btn-confirm">Confirm and Place Order</button>
+                            <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notifications Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <footer>
+        <p>&copy; 2026 Jireh Boutique. All rights reserved.</p>
+    </footer>
+</body>
+</html>
