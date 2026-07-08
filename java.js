@@ -266,7 +266,7 @@ async function submitOrder(event) {
         }
 
         if (result.status === "success") {
-            showToast("Success!", "Your pickup reservation has been successfully saved.", "success");
+            showToast("Success!", "Your order is saved.", "Pick your items after 2 days");
 
             // Generate receipt text for WhatsApp redirection
             const message = `Hello! I just placed a boutique order via the website.\n\n` +
@@ -275,9 +275,7 @@ async function submitOrder(event) {
                 `👗 Item: ${orderData.item}\n` +
                 `💰 Price: UGX ${Number(orderData.price).toLocaleString()}\n` +
                 `💳 Payment: ${orderData.payment_method}\n` +
-                `📝 Ref/Txn ID: ${orderData.txn_id}\n\n` +
-                `Please pack my items. I am heading over to the shop for pickup!`;
-
+                `📝 Ref/Txn ID: ${orderData.txn_id}\n\n`;
             // Redirect current tab to WhatsApp (bypasses browser popup blocker)
             window.location.href = `https://wa.me/${BOUTIQUE_WHATSAPP}?text=${encodeURIComponent(message)}`;
 
